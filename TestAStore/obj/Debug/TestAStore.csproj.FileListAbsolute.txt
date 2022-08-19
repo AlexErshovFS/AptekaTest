@@ -1,0 +1,5 @@
+c:\users\user\documents\visual studio 2015\Projects\TestAStore\bin\Debug\TestAStore.exe
+c:\users\user\documents\visual studio 2015\Projects\TestAStore\bin\Debug\TestAStore.pdb
+c:\users\user\documents\visual studio 2015\Projects\TestAStore\obj\Debug\TestAStore.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\TestAStore\obj\Debug\TestAStore.exe
+c:\users\user\documents\visual studio 2015\Projects\TestAStore\obj\Debug\TestAStore.pdb

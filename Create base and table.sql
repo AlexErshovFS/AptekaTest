@@ -1,0 +1,124 @@
+USE [master]
+GO
+
+/****** Object:  Database [TestABase]    Script Date: 19.08.2022 8:58:41 ******/
+CREATE DATABASE [TestABase]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'TestABase', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQL\MSSQL\DATA\TestABase.mdf' , SIZE = 5120KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'TestABase_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQL\MSSQL\DATA\TestABase_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+
+USE [TestABase]
+GO
+
+/****** Object:  Table [dbo].[Apteka]    Script Date: 19.08.2022 9:01:47 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Apteka](
+	[ID] [smallint] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[Adress] [nvarchar](50) NULL,
+	[Phone] [nvarchar](20) NULL,
+ CONSTRAINT [PK_Apteka] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ 
+/****** Object:  Table [dbo].[Batch]    Script Date: 19.08.2022 9:02:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Batch](
+	[ID] [smallint] IDENTITY(1,1) NOT NULL,
+	[ID_TMC] [int] NOT NULL,
+	[ID_Store] [smallint] NOT NULL,
+	[Quantity] [decimal](10, 2) NOT NULL,
+ CONSTRAINT [PK_Batch] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ 
+
+/****** Object:  Table [dbo].[Store]    Script Date: 19.08.2022 9:02:42 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Store](
+	[ID] [smallint] IDENTITY(1,1) NOT NULL,
+	[ID_Apteka] [smallint] NOT NULL,
+	[Name] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Store] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+ 
+
+
+/****** Object:  Table [dbo].[TMC]    Script Date: 19.08.2022 9:03:10 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[TMC](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name_TMC] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_TMC] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+/****************************************************/
+
+ALTER TABLE [dbo].[Batch]  WITH CHECK ADD  CONSTRAINT [FK_Batch_Store] FOREIGN KEY([ID_Store])
+REFERENCES [dbo].[Store] ([ID])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[Batch] CHECK CONSTRAINT [FK_Batch_Store]
+GO
+
+ALTER TABLE [dbo].[Batch]  WITH CHECK ADD  CONSTRAINT [FK_Batch_TMC] FOREIGN KEY([ID_TMC])
+REFERENCES [dbo].[TMC] ([ID])
+ON DELETE CASCADE
+GO
+
+
+ALTER TABLE [dbo].[Store]  WITH CHECK ADD  CONSTRAINT [FK_Store_Apteka] FOREIGN KEY([ID_Apteka])
+REFERENCES [dbo].[Apteka] ([ID])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[Store] CHECK CONSTRAINT [FK_Store_Apteka]
+GO
+
+
